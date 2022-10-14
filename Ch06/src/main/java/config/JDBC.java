@@ -9,15 +9,15 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class DB {
+public class JDBC {
 
-	private static DB instance = new DB();
+	private static JDBC instance = new JDBC();
 	
-	public static DB getInstance() {
+	public static JDBC getInstance() {
 		return instance;
 	}
 	
-	private DB() {
+	private JDBC() {
 		
 	}
 	

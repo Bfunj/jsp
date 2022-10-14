@@ -16,8 +16,10 @@
 	<h3>JDBC 실습</h3>
 	<a href="./user/register.jsp">User 실습하기</a><br/>
 	<a href="./member/register.jsp">Member 실습하기</a><br/>
-	<a href="./student/register.jsp">Student 실습하기</a>
-
+	<a href="./student/register.jsp">Student 실습하기</a><br/>
+	<h3>DBCP 실습</h3>
+	<a href="./user5/list.jsp">user5</a><br/>
+	<a href="./customer/list.jsp">customer CRUD 실습</a>
 </body>
 
 </html>
