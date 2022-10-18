@@ -1,6 +1,48 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="config.DBCP"%>
+<%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
 
+<script>
+
+	$(function(){
+		$('.next').click(function(){
+			let isCheck1 = $('input[class=terms]').is(':checked');
+			let isCheck2 = $('input[class=privacy]').is(':checked');
+			if(isCheck1 && isCheck2  ){
+				return true;
+			}
+			else {
+				alert('동의를 체크해주세요');
+				return false;
+			}
+		});
+	});
+
+</script>
+
+<%
+	String terms = null;
+	String privacy = null;
+	try{
+		Connection conn=DBCP.getConnection();
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM `board_terms`");
+		
+		if(rs.next()){
+			terms = rs.getString(1);
+			privacy = rs.getString(2);
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	
+%>
         <main id="user" class="terms">
            <table border="0">
             <caption>
@@ -8,7 +50,7 @@
             </caption>
             <tr>
                 <td>
-                    <textarea class="terms" readonly>약관내용</textarea>
+                    <textarea class="terms" readonly><%= terms%></textarea>
                     <label><input type="checkbox" class="terms">&nbsp;동의합니다.</label>
                 </td>
             </tr>
@@ -18,7 +60,7 @@
                 </caption>
                 <tr>
                     <td>
-                        <textarea class="privacy" readonly>개인정보내용</textarea>
+                        <textarea class="privacy" readonly><%= privacy %></textarea>
                         <label><input type="checkbox" class="privacy">&nbsp;동의합니다.</label>
                     </td>
                 </tr>
