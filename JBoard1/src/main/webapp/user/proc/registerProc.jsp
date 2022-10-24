@@ -16,21 +16,17 @@
 	String nick 		=	request.getParameter("nick");
 	String email 		=	request.getParameter("email");
 	String hp 		=	request.getParameter("hp");
+	String zip 		=	request.getParameter("zip");
+	String addr1 		=	request.getParameter("addr1");
+	String addr2 		=	request.getParameter("addr2");
 	String regip 		=	request.getRemoteAddr();
 	
 	
 		try{
-			// 1단계 - JNDI 서비스 객체생성
-			/*
-			Context initCtx= new InitialContext();
-			Context ctx = (Context) initCtx.lookup("java:comp/env");
-			// 2단계 - 커넥션 풀 얻기
-			DataSource ds =(DataSource) ctx.lookup("dbcp_java1_board");
-			Connection conn = ds.getConnection();
-			*/
+			
 			Connection conn = DBCP.getConnection();
 			// 3단계
-			String sql = "INSERT INTO  `board_user` (`uid`,`pass`,`name`,`nick`,`email`,`hp`,`regip`,`rdate`) VALUES(?,?,?,?,?,?,?,now())";
+			String sql = "INSERT INTO  `board_user` (`uid`,`pass`,`name`,`nick`,`email`,`hp`,`zip`,`addr1`,`addr2`,`regip`,`rdate`) VALUES(?,SHA2(?,256),?,?,?,?,?,?,?,?,now())";
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			psmt.setString(1, uid);
 			psmt.setString(2, pass1);
@@ -38,7 +34,10 @@
 			psmt.setString(4, nick);
 			psmt.setString(5, email);
 			psmt.setString(6, hp);
-			psmt.setString(7, regip);
+			psmt.setString(7, zip);
+			psmt.setString(8, addr1);
+			psmt.setString(9, addr2);
+			psmt.setString(10, regip);
 		
 			// 4단계
 			psmt.executeUpdate();
