@@ -1,4 +1,4 @@
-<%@page import="config.DB"%>
+
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.ArrayList"%>

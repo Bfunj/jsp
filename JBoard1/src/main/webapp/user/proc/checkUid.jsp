@@ -1,8 +1,9 @@
+<%@page import="kr.co.jboard1.db.sql"%>
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="config.DBCP"%>
+<%@page import="kr.co.jboard1.db.DBCP"%>
 <%@ page contentType="application/json;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	// 전송 데이터 수신
@@ -15,8 +16,8 @@
 	try{
 		Connection conn = DBCP.getConnection();
 		
-		String sql = "select count(`uid`) from `board_user` where `uid`=?";
-		PreparedStatement psmt = conn.prepareStatement(sql);
+		
+		PreparedStatement psmt = conn.prepareStatement(sql.SELECT_COUNT_UID);
 		psmt.setString(1, uid);
 		
 		ResultSet rs = psmt.executeQuery();

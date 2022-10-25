@@ -1,4 +1,5 @@
-<%@page import="config.DBCP"%>
+<%@page import="kr.co.jboard1.db.sql"%>
+<%@page import="kr.co.jboard1.db.DBCP"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
@@ -26,8 +27,7 @@
 			
 			Connection conn = DBCP.getConnection();
 			// 3단계
-			String sql = "INSERT INTO  `board_user` (`uid`,`pass`,`name`,`nick`,`email`,`hp`,`zip`,`addr1`,`addr2`,`regip`,`rdate`) VALUES(?,SHA2(?,256),?,?,?,?,?,?,?,?,now())";
-			PreparedStatement psmt = conn.prepareStatement(sql);
+			PreparedStatement psmt = conn.prepareStatement(sql.INSERT_USER);
 			psmt.setString(1, uid);
 			psmt.setString(2, pass1);
 			psmt.setString(3, name);
