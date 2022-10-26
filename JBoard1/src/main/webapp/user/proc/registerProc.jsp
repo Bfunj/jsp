@@ -1,6 +1,5 @@
 <%@page import="kr.co.jboard1.db.sql"%>
 <%@page import="kr.co.jboard1.db.DBCP"%>
-<%@page import="javax.sql.DataSource"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -39,10 +38,8 @@
 			psmt.setString(9, addr2);
 			psmt.setString(10, regip);
 		
-			// 4단계
 			psmt.executeUpdate();
-			// 5단계
-			// 6단계
+
 			psmt.close();
 			conn.close();
 		}

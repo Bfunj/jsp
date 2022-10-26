@@ -19,5 +19,22 @@ public class sql {
 	public static final String SELECT_COUNT_UID		="select count(`uid`) from `board_user` where `uid`=?";
 	public static final String SELECT_COUNT_NICK	="select count(`nick`) from `board_user` where `nick`=?";
 	public static final String SELECT_TERMS			="SELECT * FROM `board_terms`";
+	
+	
 	//board
+	public static final String INSERT_ARTICLE = "insert into `board_article` set "
+			+ "`title`=?,"
+			+ "`content`=?,"
+			+ "`file`=?,"
+			+ "`uid`=?,"
+			+ "`regip`=?,"
+			+ "`rdate`=NOW()";
+	public static final String INSERT_FILE	= "insert into `board_file` set"
+			+"`parent`=?,"
+			+"`newname`=?,"
+			+"`oriname`=?,"
+			+"`rdate`=NOW()";
+	
+	public static final String SELECT_MAX_NO = "select max(`no`) from `board_article`";
+														
 }
