@@ -12,6 +12,18 @@ public class articleBean {
 	private String uid;
 	private String regip;
 	private String rdate;
+	
+	//추가 필드
+	//join되면서 추가됨
+	
+	private String nick;
+	
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
 	public int getNo() {
 		return no;
 	}

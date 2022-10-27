@@ -10,11 +10,10 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
+
+
 request.setCharacterEncoding("UTF-8");
 String no = request.getParameter("no");
-//String hit = request.getParameter("hit");
-
-
 
 articleBean ab= null;
 fileBean fb= null;
@@ -23,10 +22,10 @@ int file =0;
 try{
 	Connection conn =DBCP.getConnection();
 	Statement stmt = conn.createStatement();
-	/*
+	
 	PreparedStatement psmt = conn.prepareStatement("update `board_article` set `hit` = `hit`+1 where `no`='"+no+"'");
 	psmt.executeUpdate();
-	*/
+	
 	ResultSet rs = stmt.executeQuery("SELECT * FROM `board_article` WHERE `no`='"+no+"'");
 	
 	if(rs.next()){
@@ -45,11 +44,9 @@ try{
 	}
 	
 	
-	
-	
-		rs.close();
-		stmt.close();
-		conn.close();
+	rs.close();
+	stmt.close();
+	conn.close();
 	
 }catch(Exception e){
 	e.printStackTrace();
@@ -125,9 +122,10 @@ if(rs.next()){
             background: #f5f8f9;
         }
         #board.view table td{
-            padding: 10px;
+            padding: 0px;
             box-sizing: border-box;
         }
+   
         #board.view table input{
             width: 100%;
             height: 24px;
@@ -227,9 +225,8 @@ if(rs.next()){
                  
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" name="title" value=<%= ab.getTitle() %> readonly></td>
+                    <td><input type="text" value="<%= ab.getTitle() %>" name="title"  readonly ></td>
                 </tr>
-              
                 <tr>
                     <th>파일</th>
                        <%if(ab.getFile()==1) {%>
@@ -246,7 +243,9 @@ if(rs.next()){
             </table>
 
             <div>
+            	<%if( ab.getUid().equals(sessUser.getUid()) ) {%>
                 <a href="/JBoard1/lsit.jsp" class="btn btnRemove">삭제</a>
+                <%} %>
                 <a href="/JBoard1/write.jsp" class="btn btnModify">수정</a>
                 <a href="/JBoard1/lsit.jsp" class="btn btnList">목록</a>
             </div>
@@ -258,7 +257,9 @@ if(rs.next()){
                     <span class="date">20-05-13</span>
                     <p class="content">댓글 샘플입니다.</p>
                     <div>
+                    
                         <a href="#" class="Remove">삭제</a>
+                        
                         <a href="#" class="Modify">수정</a>
                     </div>
                 </article>
