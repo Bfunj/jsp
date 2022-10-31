@@ -12,10 +12,32 @@ public class articleBean {
 	private String uid;
 	private String regip;
 	private String rdate;
+
+	private int fno;
+	private String oriName;
+	private int download;
 	
 	//추가 필드
 	//join되면서 추가됨
 	
+	public int getFno() {
+		return fno;
+	}
+	public void setFno(int fno) {
+		this.fno = fno;
+	}
+	public String getOriName() {
+		return oriName;
+	}
+	public void setOriName(String oriName) {
+		this.oriName = oriName;
+	}
+	public int getDownload() {
+		return download;
+	}
+	public void setDownload(int download) {
+		this.download = download;
+	}
 	private String nick;
 	
 	public String getNick() {

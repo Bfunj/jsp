@@ -27,8 +27,6 @@
 		currentPage=Integer.parseInt(pg);
 	}
 	
-	
-	
 	start=(currentPage -1)*10;
 	currentPageGroup =(int) Math.ceil(currentPage/10.0);
 	PageGroupStart = ( currentPageGroup - 1 )*10 +1;
@@ -94,4 +92,5 @@
             </div>
             <a href="/JBoard1/write.jsp" class="btnWrite">글쓰기</a>
         </main>
+        
 <%@ include file="./_footer.jsp" %>

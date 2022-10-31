@@ -1,17 +1,19 @@
 package kr.co.jboard1.bean;
 
-public class fileBean {
-	private int no;
+public class FileBean {
+	
+	private int fno;
 	private int Parent;
 	private String newname;
 	private String oriname;
 	private int download;
 	private String rdate;
-	public int getNo() {
-		return no;
+	
+	public int getFno() {
+		return fno;
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public void setFno(int fno) {
+		this.fno = fno;
 	}
 	public int getParent() {
 		return Parent;
@@ -43,6 +45,10 @@ public class fileBean {
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
 	}
+	
+	
+	
+
 	
 	
 }

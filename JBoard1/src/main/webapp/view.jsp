@@ -1,5 +1,7 @@
+<%@page import="kr.co.jboard1.dao.ArticleDAO"%>
+<%@page import="kr.co.jboard1.db.sql"%>
 <%@page import="java.sql.PreparedStatement"%>
-<%@page import="kr.co.jboard1.bean.fileBean"%>
+<%@page import="kr.co.jboard1.bean.FileBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -11,77 +13,11 @@
 
 <%
 
-
 request.setCharacterEncoding("UTF-8");
 String no = request.getParameter("no");
 
-articleBean ab= null;
-fileBean fb= null;
-int file =0;
-
-try{
-	Connection conn =DBCP.getConnection();
-	Statement stmt = conn.createStatement();
+	articleBean ab  = ArticleDAO.getInstance().selectArticle(no);
 	
-	PreparedStatement psmt = conn.prepareStatement("update `board_article` set `hit` = `hit`+1 where `no`='"+no+"'");
-	psmt.executeUpdate();
-	
-	ResultSet rs = stmt.executeQuery("SELECT * FROM `board_article` WHERE `no`='"+no+"'");
-	
-	if(rs.next()){
-		ab = new articleBean();
-		ab.setNo(rs.getInt(1));
-		ab.setParent(rs.getString(2));
-		ab.setComment(rs.getString(3));
-		ab.setCate(rs.getString(4));
-		ab.setTitle(rs.getString(5));
-		ab.setContent(rs.getString(6));
-		ab.setFile(rs.getInt(7));
-		ab.setHit(rs.getInt(8));
-		ab.setUid(rs.getString(9));
-		ab.setRegip(rs.getString(10));
-		ab.setRdate(rs.getString(11));
-	}
-	
-	
-	rs.close();
-	stmt.close();
-	conn.close();
-	
-}catch(Exception e){
-	e.printStackTrace();
-}
-
-
-if(ab.getFile()==1) {
-try{
-	Connection conn =DBCP.getConnection();
-
-Statement stmt = conn.createStatement();
-
-ResultSet rs = stmt.executeQuery("SELECT * FROM `board_file` WHERE `parent`='"+no+"'");
-
-if(rs.next()){
-	fb = new fileBean();
-	fb.setNo(rs.getInt(1));
-	fb.setParent(rs.getInt(2));
-	fb.setNewname(rs.getString(3));
-	fb.setOriname(rs.getString(4));
-	fb.setDownload(rs.getInt(5));
-	fb.setRdate(rs.getString(6));
-	
-}else fb.setOriname("");
-
-	rs.close();
-	stmt.close();
-	conn.close();
-	
-}catch(Exception e){
-	e.printStackTrace();
-}
-}
-
-
 %>
 
 
@@ -225,12 +161,13 @@ if(rs.next()){
                  
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" value="<%= ab.getTitle() %>" name="title"  readonly ></td>
+                    
+                    <td><input type="text" value="<%= ab.getTitle() %>" name= "title"  readonly ></td>
                 </tr>
                 <tr>
                     <th>파일</th>
                        <%if(ab.getFile()==1) {%>
-                    <td><a href="#"><%= fb.getOriname() %></a></td>
+                    <td><a href="/JBoard1/proc/download.jsp?fno=<%= ab.getFno() %>"><%= ab.getOriName() %></a>&nbsp;<span><%= ab.getDownload() %></span>회 다운로드</td>
                      <% } %>
                 </tr>
                
@@ -244,9 +181,9 @@ if(rs.next()){
 
             <div>
             	<%if( ab.getUid().equals(sessUser.getUid()) ) {%>
-                <a href="/JBoard1/lsit.jsp" class="btn btnRemove">삭제</a>
+                <a href="/JBoard1/proc/deleteProc.jsp?no=<%= ab.getNo() %>" class="btn btnRemove">삭제</a>
                 <%} %>
-                <a href="/JBoard1/write.jsp" class="btn btnModify">수정</a>
+                <a href="./modify.jsp?no=<%= ab.getNo() %>" class="btn btnModify">수정</a>
                 <a href="/JBoard1/lsit.jsp" class="btn btnList">목록</a>
             </div>
             <!-- 댓글 목록-->
