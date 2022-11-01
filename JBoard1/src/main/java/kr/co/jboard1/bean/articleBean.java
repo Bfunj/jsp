@@ -18,10 +18,17 @@ public class articleBean {
 	private int download;
 	
 	//추가 필드
+	private String fname;
 	//join되면서 추가됨
 	
 	public int getFno() {
 		return fno;
+	}
+	public String getFname() {
+		return fname;
+	}
+	public void setFname(String fname) {
+		this.fname = fname;
 	}
 	public void setFno(int fno) {
 		this.fno = fno;

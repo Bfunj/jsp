@@ -1,3 +1,5 @@
+<%@page import="kr.co.jboard1.bean.articleBean"%>
+<%@page import="kr.co.jboard1.dao.ArticleDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.io.File"%>
@@ -25,36 +27,15 @@
 	String fname	= mr.getFilesystemName("fname");
 	String regip   	= request.getRemoteAddr();
 	
-	int parent =0;
+	articleBean article = new articleBean();
+	article.setTitle(title);
+	article.setContent(content);
+	article.setUid(uid);
+	article.setFname(fname);
+	article.setRegip(regip);
 	
-	try{
-		Connection conn = DBCP.getConnection();
-		//트랜잭션 시작
-		conn.setAutoCommit(false);	// autocommit	
-		
-		Statement stmt = conn.createStatement();
-		PreparedStatement psmt = conn.prepareStatement(sql.INSERT_ARTICLE);
-		psmt.setString(1, title);
-		psmt.setString(2, content);
-		psmt.setInt(3, fname == null ? 0 : 1);
-		psmt.setString(4, uid);
-		psmt.setString(5, regip);
-		
-		psmt.executeUpdate();
-		ResultSet rs =stmt.executeQuery(sql.SELECT_MAX_NO);
-		
-		conn.commit();	// autocommit
-		
-		if(rs.next()){
-			parent = rs.getInt(1);
-		}
-		
-		
-		psmt.close();
-		conn.close();
-	}catch(Exception e){
-		e.printStackTrace();
-	}
+	ArticleDAO dao = ArticleDAO.getInstance();
+	int parent = dao.insertArticle(article);
 	
 	// 파일을 첨부 했으면 파일명 수정 작업
 	if(fname != null){
@@ -74,21 +55,8 @@
 			oriFile.renameTo(newFile);
 		// 파일 테이블 수정
 		
-		try{
-			Connection conn = DBCP.getConnection();
-			PreparedStatement psmt = conn.prepareStatement(sql.INSERT_FILE);
-			
-			psmt.setInt(1, parent);
-			psmt.setString(2, newFname);
-			psmt.setString(3, fname);
-			psmt.executeUpdate();
-			
-			psmt.close();
-			conn.close();
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		//파일 테이블 저장
+	dao.insertFile(parent, newFname, fname);
 	}
 	
 	

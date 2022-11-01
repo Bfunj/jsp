@@ -68,7 +68,7 @@
 			          <% for(articleBean ab : artiB){ %>
 					<tr>
 						<td><%= pageStartNum-- %></td>
-						<td><a href="./view.jsp?no=<%= ab.getNo() %>"><%= ab.getTitle() %></a></td>
+						<td><a href="./view.jsp?no=<%= ab.getNo() %>&pg=<%= currentPage%>"><%= ab.getTitle() %></a></td>
 						<td><%= ab.getNick() %></td>
 						<td><%= ab.getRdate().substring(2,10) %></td>
 						<td><%= ab.getHit() %></td>							
