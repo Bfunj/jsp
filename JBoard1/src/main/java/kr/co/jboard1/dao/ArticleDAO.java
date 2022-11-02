@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.protocol.Resultset;
-
 import kr.co.jboard1.bean.FileBean;
 import kr.co.jboard1.bean.articleBean;
 import kr.co.jboard1.db.DBCP;
@@ -296,6 +294,43 @@ public class ArticleDAO {
 		}
 		return comments;
 	}
+
+	public int updateComment(String no, String content) {
+		
+		int result = 0;
+		try{
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt=conn.prepareStatement(sql.UPDATE_COMMENT);
+			psmt.setString(1, content);
+			psmt.setString(2, no);
+			
+			result = psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;	
+	}
+	
+	public int deleteComment(String no) {
+		
+		int result = 0;
+		try{
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt=conn.prepareStatement(sql.DELETE_COMMENT);
+			psmt.setString(1, no);
+			
+			result = psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;	
+	} // 댓글 삭제
 }
 
 
