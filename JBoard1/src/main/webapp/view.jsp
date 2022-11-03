@@ -309,9 +309,9 @@
 
             <div>
             	<%if( ab.getUid().equals(sessUser.getUid()) ) {%>
-                <a href="/JBoard1/proc/deleteProc.jsp?no=<%= ab.getNo() %>" class="btn btnRemove">삭제</a>
+                <a href="/JBoard1/proc/deleteProc.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>" class="btn btnRemove">삭제</a>
                 <%} %>
-                <a href="./modify.jsp?no=<%= ab.getNo() %>" class="btn btnModify">수정</a>
+                <a href="/JBoard1/modify.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>" class="btn btnModify">수정</a>
                 <a href="/JBoard1/lsit.jsp?pg=<%= pg%>" class="btn btnList">목록</a>
             </div>
             
@@ -322,12 +322,14 @@
                 <%for(articleBean comment : comments){ %>
                 <article class="hidecomment">
                     <span class="nick"><%= comment.getNick()%></span>
-                   <span class="date"><%= comment.getRdate()%></span> 
+               		<span class="date"><%= comment.getRdate()%></span> 
                     <p class="content" contentEditable="true"><%= comment.getContent()%></p>
-                   <div>
-                <a href="#" class="remove" data-no="<%= comment.getNo() %>">삭제</a>
-                <a href="#" class="modify" data-no="<%= comment.getNo() %>">수정</a>
-            </div>
+                    <%if( comment.getUid().equals(sessUser.getUid()) ) {%>
+                    <div>
+		                <a href="#" class="remove" data-no="<%= comment.getNo() %>">삭제</a>
+		                <a href="#" class="modify" data-no="<%= comment.getNo() %>">수정</a>
+            		</div>
+            		 <%} %>
                 </article>
 				<%} %>
 				
