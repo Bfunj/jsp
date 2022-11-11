@@ -10,23 +10,23 @@
 <body>
 	<h3>user 수정하기</h3>
 	<a href="./list.do">user 목록</a>
-	<form action="./modifyProc.jsp" method="post">
+	<form action="/Ch09/user1/modify.do" method="post">
 		<table border="1">
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="uid" readonly value="1"></td>
+				<td><input type="text" name="uid" readonly value="${requestScope.vo.uid }"></td>
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name="name" value="2"></td>
+				<td><input type="text" name="name" value="${vo.name }"></td>
 			</tr>
 			<tr>
 				<td>휴대폰</td>
-				<td><input type="text" name="hp"  value="3"></td>
+				<td><input type="text" name="hp"  value="${vo.hp }"></td>
 			</tr>
 			<tr>
 				<td>나이</td>
-				<td><input type="text" name="age" value="4"></td>
+				<td><input type="text" name="age" value="${vo.age }"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
