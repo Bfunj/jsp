@@ -2,5 +2,5 @@
 
 <%
 	session.invalidate();
-	response.sendRedirect("/Farmstory1/index.jsp?success=201");
+	response.sendRedirect("/Farmstory1");
 %>

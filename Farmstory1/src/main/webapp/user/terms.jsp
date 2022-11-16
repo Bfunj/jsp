@@ -1,10 +1,13 @@
-<%@page import="kr.co.jboard1.db.sql"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="kr.co.jboard1.db.DBCP"%>
+<%@page import="kr.co.Farmstory1.dao.UserDao"%>
+<%@page import="kr.co.Farmstory1.bean.TermsBean"%>
 <%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	 TermsBean tb = UserDao.getInstance().selectTerms();
+%>
 <%@ include file="../_header.jsp" %>
+
+
 <script>
 
 	$(function(){
@@ -24,32 +27,12 @@
 </script>
 
 
-<%
-	String terms = null;
-	String privacy = null;
-	try{
-		Connection conn=DBCP.getConnection();
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(sql.SELECT_TERMS);
-		
-		if(rs.next()){
-			terms = rs.getString(1);
-			privacy = rs.getString(2);
-		}
-		rs.close();
-		stmt.close();
-		conn.close();
-	}catch(Exception e){
-		e.printStackTrace();
-	}
-	
-%>
 <main id="user" class="terms">
     <table border="0">
         <caption>사이트 이용약관</caption>
         <tr>
             <td>
-                <textarea class="terms" readonly>약관내용</textarea>
+                <textarea class="terms" readonly><%= tb.getTerms()%></textarea>
                 <label><input type="checkbox" class="terms">&nbsp;동의합니다.</label>
             </td>
         </tr>
@@ -59,7 +42,7 @@
         <caption>개인정보 취급방침</caption>
         <tr>
             <td>
-                <textarea class="privacy" readonly>개인정보내용</textarea>
+                <textarea class="privacy" readonly><%= tb.getPrivacy() %></textarea>
                 <label><input type="checkbox" class="privacy">&nbsp;동의합니다.</label>
             </td>
         </tr>

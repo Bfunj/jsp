@@ -1,9 +1,9 @@
-<%@page import="kr.co.jboard1.db.sql"%>
+<%@page import="kr.co.Farmstory1.db.sql"%>
+<%@page import="kr.co.Farmstory1.db.DBCP"%>
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="kr.co.jboard1.db.DBCP"%>
 <%@ page contentType="application/json;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	// 전송 데이터 수신

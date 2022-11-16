@@ -1,6 +1,6 @@
-package kr.co.jboard1.bean;
+package kr.co.Farmstory1.bean;
 
-public class articleBean {
+public class ArticleBean {
 	private int no;
 	private String parent;
 	private String comment;

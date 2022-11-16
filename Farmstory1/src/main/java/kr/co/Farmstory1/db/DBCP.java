@@ -1,4 +1,4 @@
-package kr.co.jboard1.db;
+package kr.co.Farmstory1.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;

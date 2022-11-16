@@ -1,6 +1,16 @@
+<%@page import="kr.co.Farmstory1.dao.ArticleDao"%>
+<%@page import="kr.co.Farmstory1.bean.ArticleBean"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="./_header.jsp" %>
+
+<%
+	ArticleDao dao =ArticleDao.getInstance();
+	List<ArticleBean> arti_story = dao.selectArticles(0, "story");
+	List<ArticleBean> arti_grow = dao.selectArticles(0, "grow");
+	List<ArticleBean> arti_school= dao.selectArticles(0, "school");
+%>
 
 <main>
     <div class="slider">
@@ -26,96 +36,51 @@
 
     <div class="latest">
         <div>
-            <a href="#"><img src="./img/main_latest1_tit.png" alt="텃밭 가꾸기"/></a>
+            <a href="/Farmstory1/board/list.jsp?group=croptalk&cate=grow"><img src="./img/main_latest1_tit.png" alt="텃밭 가꾸기"/></a>
             <img src="./img/main_latest1_img.jpg" alt="이미지"/>
             <table border="0">
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
+               	<% int i=0; %>
+                 <% for(ArticleBean ab : arti_grow){ i++; %>              
+					<tr>
+						<td>></td>
+						<td><a href="/Farmstory1/board/view.jsp?no=<%= ab.getNo() %>&pg=1&group=croptalk&cate=grow"><%= ab.getTitle() %></a></td>	
+						<td><%= ab.getRdate().substring(2,10) %></td>										
+					</tr>
+					<% if(i==5) break;} %>
+  
                 </tr>
             </table>
         </div>
         <div>
-            <a href="#"><img src="./img/main_latest2_tit.png" alt="귀농학교"/></a>
+            <a href="/Farmstory1/board/list.jsp?group=croptalk&cate=school"><img src="./img/main_latest2_tit.png" alt="귀농학교"/></a>
             <img src="./img/main_latest2_img.jpg" alt="이미지"/>
             <table border="0">
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
+            
+                <% int j=0; %>
+                 <% for(ArticleBean ab : arti_school){ j++; %>              
+					<tr>
+						<td>></td>
+						<td><a href="/Farmstory1/board/view.jsp?no=<%= ab.getNo() %>&pg=1&group=croptalk&cate=school"><%= ab.getTitle() %></a></td>	
+						<td><%= ab.getRdate().substring(2,10) %></td>										
+					</tr>
+					<% if(j==5) break;} %>
+            
             </table>
         </div>
         <div>
-            <a href="#"><img src="./img/main_latest3_tit.png" alt="농작물 이야기"/></a>
+            <a href="/Farmstory1/board/list.jsp?group=croptalk&cate=story"><img src="./img/main_latest3_tit.png" alt="농작물 이야기"/></a>
             <img src="./img/main_latest3_img.jpg" alt="이미지"/>
             <table border="0">
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
+              
+                	<% int k=0; %>
+                 <% for(ArticleBean ab : arti_story){ k++; %>              
+					<tr>
+						<td>></td>
+						<td><a href="/Farmstory1/board/view.jsp?no=<%= ab.getNo() %>&pg=1&group=croptalk&cate=story"><%= ab.getTitle() %></a></td>	
+						<td><%= ab.getRdate().substring(2,10) %></td>										
+					</tr>
+					<% if(k==5) break;} %>
+            
             </table>
         </div>
         

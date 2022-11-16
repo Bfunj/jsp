@@ -1,4 +1,4 @@
-package kr.co.jboard1.bean;
+package kr.co.Farmstory1.bean;
 
 public class FileBean {
 	

@@ -1,34 +1,49 @@
+<%@page import="kr.co.Farmstory1.dao.ArticleDao"%>
+<%@page import="kr.co.Farmstory1.bean.ArticleBean"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/_header.jsp" %>
 <%
+	request.setCharacterEncoding("UTF-8");
 	String group = request.getParameter("group");
 	String cate = request.getParameter("cate");
+	String no = request.getParameter("no");
+	String pg = request.getParameter("pg");
 	pageContext.include("./_"+group+".jsp");
+	
+	ArticleBean ab  = ArticleDao.getInstance().selectArticle(no);
 %>
 
-
-        <main id="board" class="view">
-            
+   <main id="board" class="view">
             <table>
-             
+                <caption>글보기</caption>
+                 
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" name="title" value="제목입니다." readonly/></td>
+                    
+                    <td><input type="text" value="<%= ab.getTitle() %>" name= "title"  readonly ></td>
                 </tr>
+                
                 <tr>
                     <th>파일</th>
-                    <td><a href="#">2020년 상반기 매출자료.xls</a><span>7</span>회 다운로드</td>
+                       <%if(ab.getFile()==1) {%>
+                    <td><a href="/Farmstory1/board/proc/download.jsp?fno=<%= ab.getFno() %>"><%= ab.getOriName() %></a>&nbsp;<span><%= ab.getDownload() %></span>회 다운로드</td>
+                     <% } %>
                 </tr>
+               
                 <tr>
                     <th>내용</th>
-                    <td><textarea name="content" readonly>내용 샘플입니다.</textarea></td>
+                    <td><textarea name="content"readonly><%= ab.getContent() %></textarea></td>
                 </tr>
+           
             </table>
 
+
             <div>
-                <a href="#" class="btn btnRemove">삭제</a>
-                <a href="./modify.jsp?group=<%= group %>&cate=<%= cate %>" class="btn btnModify">수정</a>
-                <a href="./list.jsp?group=<%= group %>&cate=<%= cate %>" class="btn btnList">목록</a>
+            	<%if( ab.getUid().equals(sessUser.getUid()) ) {%>
+                <a href="/JBoard1/proc/deleteProc.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>" class="btn btnRemove">삭제</a>
+                <%} %>
+                <a href="/JBoard1/modify.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>" class="btn btnModify">수정</a>
+                <a href="/JBoard1/lsit.jsp?pg=<%= pg%>" class="btn btnList">목록</a>
             </div>
 
             <!-- 댓글목록 -->
