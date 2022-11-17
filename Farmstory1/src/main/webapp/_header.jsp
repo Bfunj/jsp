@@ -26,7 +26,13 @@
             });
             $('#tabs').tabs();
         });
-    </script>
+        
+        
+ 
+        
+        
+        
+        </script>
 
 </head>
 <body>

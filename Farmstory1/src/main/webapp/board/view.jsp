@@ -3,6 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/_header.jsp" %>
 <%
+
+
 	request.setCharacterEncoding("UTF-8");
 	String group = request.getParameter("group");
 	String cate = request.getParameter("cate");
@@ -39,11 +41,13 @@
 
 
             <div>
+            	<%if( sessUser != null ) {%>
             	<%if( ab.getUid().equals(sessUser.getUid()) ) {%>
-                <a href="/JBoard1/proc/deleteProc.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>" class="btn btnRemove">삭제</a>
-                <%} %>
-                <a href="/JBoard1/modify.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>" class="btn btnModify">수정</a>
-                <a href="/JBoard1/lsit.jsp?pg=<%= pg%>" class="btn btnList">목록</a>
+                <a href="/Farmstory1/board/proc/deleteProc.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>" class="btn btnRemove">삭제</a>
+                <%} %>     
+                <a href="/Farmstory1/board/modify.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>&group=<%= group %>&cate=<%= cate%>" class="btn btnModify">수정</a>
+              	<%} %>  
+				<a href="/Farmstory1/board/list.jsp?pg=<%= pg%>&group=<%= group %>&cate=<%= cate%>" class="btn btnList">목록</a>
             </div>
 
             <!-- 댓글목록 -->
@@ -60,7 +64,8 @@
                 </article>                
                 <p class="empty">등록된 댓글이 없습니다.</p>
             </section>
-
+            
+			<%if( sessUser != null ) {%>
             <!-- 댓글쓰기 -->
             <section class="commentForm">
                 <h3>댓글쓰기</h3>
@@ -72,6 +77,7 @@
                     </div>
                 </form>
             </section>
+            <%} %>  
         </main>
           </div> 
 <%@ include file="/_footer.jsp" %>

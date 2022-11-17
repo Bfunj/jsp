@@ -2,8 +2,8 @@
 <%@ include file="../_header.jsp" %>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="/JBoard1/js/postcode.js"> </script>
-<script src="/JBoard1/js/validation.js"> </script>
+<script src="/Farmstory1/board/js/postcode.js"> </script>
+<script src="/Farmstory1/board/js/validation.js"> </script>
 
 <main id="user" class="register">
     <form action="/Farmstory1/user/proc/registerProc.jsp">
@@ -13,7 +13,7 @@
                     <th>아이디</th>
                     <td>
                         <input type="text" name="uid" placeholder="아이디 입력">
-                    <button type="button" id="btnUidCheck"><img src="/JBoard1/img/chk_id.gif" alt="중복확인"></button>
+                    <button type="button" id="btnUidCheck"><img src="/Farmstory1/user/img/chk_id.gif" alt="중복확인"></button>
                     <span class="uidResult"></span>
                     </td>
                 </tr>
@@ -47,7 +47,7 @@
                     <td>
                         <p>공백 없이 한글, 영문, 숫자만 입력가능</p>
                         <input type="text" name="nick" placeholder="별명 입력">
-                        <button type="button" id="btnNickCheck"><img src="/JBoard1/img/chk_id.gif" alt="중복확인"></button>           
+                        <button type="button" id="btnNickCheck"><img src="/Farmstory1/user/img/chk_id.gif" alt="중복확인"></button>           
                     <span class="resultNick"></span>
                     </td>
                 </tr>
@@ -70,7 +70,7 @@
                     <th>주소</th>
                     <td>
                         <input type="text" name="zip" placeholder="우편번호 검색" id="sample6_postcode">
-                        <button type="button" onclick="Postcode()"><img src="/JBoard1/img/chk_post.gif" alt="우편번호 찾기"></button>
+                        <button type="button" onclick="Postcode()"><img src="/Farmstory1/user/img/chk_post.gif" alt="우편번호 찾기"></button>
                         <input type="text" name="addr1" id="sample6_address" placeholder="기본주소 검색" readonly>
                         <input type="text" name="addr2" id="sample6_detailAddress" placeholder="상세주소 입력">
                     </td>

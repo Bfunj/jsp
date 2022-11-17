@@ -231,6 +231,9 @@ public FileBean selectFile(String fno) {
 		return total;
 	}
 	
+
+
+	
 	public void updateArticle() {}
 	public void deleteArticle() {}
 	

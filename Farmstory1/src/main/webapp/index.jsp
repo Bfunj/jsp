@@ -10,8 +10,17 @@
 	List<ArticleBean> arti_story = dao.selectArticles(0, "story");
 	List<ArticleBean> arti_grow = dao.selectArticles(0, "grow");
 	List<ArticleBean> arti_school= dao.selectArticles(0, "school");
+	List<ArticleBean> arti_notice= dao.selectArticles(0, "notice");
+	List<ArticleBean> arti_faq= dao.selectArticles(0, "faq");
+	List<ArticleBean> arti_qna= dao.selectArticles(0, "qna");
 %>
+<script>
+	$(function(){
+		$.get('/Farmstory1/board/proc/getLatest.jsp',function(data){});
+	});
 
+
+</script>
 <main>
     <div class="slider">
         <ul>
@@ -43,7 +52,7 @@
                  <% for(ArticleBean ab : arti_grow){ i++; %>              
 					<tr>
 						<td>></td>
-						<td><a href="/Farmstory1/board/view.jsp?no=<%= ab.getNo() %>&pg=1&group=croptalk&cate=grow"><%= ab.getTitle() %></a></td>	
+						<td><a href="/Farmstory1/board/view.jsp?no=<%= ab.getNo() %>&pg=1&group=croptalk&cate=grow"><%= ab.getTitle() %> [new] </a></td>	
 						<td><%= ab.getRdate().substring(2,10) %></td>										
 					</tr>
 					<% if(i==5) break;} %>
@@ -123,23 +132,26 @@
                 </ul>
                 <div id="tabs-1">
                     <ul class="txt">
-                        <li><a href="#">· 홈페이지 오픈 기념 이벤트를 진행합니다.</a></li>
-                        <li><a href="#">· 홈페이지 오픈 기념 이벤트를 진행합니다.</a></li>
-                        <li><a href="#">· 홈페이지 오픈 기념 이벤트를 진행합니다.</a></li>
+                 <% int z=0; %>
+                 <% for(ArticleBean ab : arti_notice){ z++; %>              	
+						<li><a href="/Farmstory1/board/view.jsp?no=<%= ab.getNo() %>&pg=1&group=community&cate=notice"><%= ab.getTitle() %></a></li>	
+					<% if(z==3) break;} %>             
                     </ul>
                 </div>
                 <div id="tabs-2">
                     <ul class="txt">
-                        <li><a href="#">· 홈페이지 이용 관련 불편사항을 들려주세요.</a></li>
-                        <li><a href="#">· 홈페이지 이용 관련 불편사항을 들려주세요.</a></li>
-                        <li><a href="#">· 홈페이지 이용 관련 불편사항을 들려주세요.</a></li>
-                    </ul>
+                      <% int x=0; %>
+                 <% for(ArticleBean ab : arti_qna){ x++; %>              	
+						<li><a href="/Farmstory1/board/view.jsp?no=<%= ab.getNo() %>&pg=1&group=community&cate=qna"><%= ab.getTitle() %></a></li>	
+					<% if(x==3) break;} %>
+                  </ul>
                 </div>
                 <div id="tabs-3">
                     <ul class="txt">
-                        <li><a href="#">· 홈페이지를 오픈하였습니다.</a></li>
-                        <li><a href="#">· 홈페이지를 오픈하였습니다.</a></li>
-                        <li><a href="#">· 홈페이지를 오픈하였습니다.</a></li>
+                       <% int c=0; %>
+                	 <% for(ArticleBean ab : arti_faq){ c++; %>              	
+						<li><a href="/Farmstory1/board/view.jsp?no=<%= ab.getNo() %>&pg=1&group=community&cate=faq"><%= ab.getTitle() %></a></li>	
+					<% if(c==3) break;} %>
                     </ul>
                 </div>
             </div>

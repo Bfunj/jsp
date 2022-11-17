@@ -30,6 +30,7 @@ public class sql {
 				+ "`regip`=?,"
 				+ "`rdate`=NOW()";
 		
+
 		public static final String INSERT_FILE = "insert into `board_file` set "
 												+ "`parent`		=?,"
 												+ "`newName`	=?,"
