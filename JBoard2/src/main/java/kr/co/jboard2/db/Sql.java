@@ -16,6 +16,7 @@ public class Sql {
 												+ "`rdate`=NOW()";
 	
 	public static final String SELECT_USER       = "select * from `board_user` where `uid`=? and `pass`=SHA2(?, 256)";
+	public static final String FIND_USER       = "select * from `board_user` where `name`=? and `email`=?";
 	public static final String SELECT_COUNT_UID  = "select count(`uid`) from `board_user` where `uid`=?";
 	public static final String SELECT_COUNT_NICK = "select count(`nick`) from `board_user` where `nick`=?";
 	public static final String SELECT_TERMS      = "select * from `board_terms`";

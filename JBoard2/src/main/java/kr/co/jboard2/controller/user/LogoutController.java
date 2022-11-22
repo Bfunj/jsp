@@ -8,8 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebServlet("/user/findPw.do")
-public class FindPwController extends HttpServlet  {
+import javax.servlet.http.HttpSession;
+
+import kr.co.jboard2.dao.UserDAO;
+import kr.co.jboard2.vo.UserVO;
+
+@WebServlet("/user/logout.do")
+public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Override
@@ -18,11 +23,15 @@ public class FindPwController extends HttpServlet  {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/user/findPw.jsp");
-		dispatcher.forward(req, resp);
+		HttpSession session = req.getSession();
+		session.removeAttribute("sessUser");
+		session.invalidate();
+		
+		resp.sendRedirect("/JBoard2/user/login.do?success=201");
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 	}
 }

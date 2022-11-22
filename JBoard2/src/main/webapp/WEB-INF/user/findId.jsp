@@ -1,23 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="./_header.jsp"/>
+<script src="/JBoard2/js/Find.js"></script>
         <main id="user">
             <section class="find findId">
-                <form action="#">
+                <form action="/JBoard2/user/findIdResult.do" method="post">
                     <table border="0">
                         <caption>아이디 찾기</caption>
                         <tr>
-                            <td>이름</td>
-                            <td><input type="text" name="name" placeholder="이름 입력"/></td>
+                           <td>이름</td>
+		                    <td>
+		                        <input type="text" name="name" placeholder="이름 입력"/>
+		                        <span class="resultName"></span>     
+		                    </td>
+                       		
                         </tr>
                         <tr>
                             <td>이메일</td>
                             <td>
                                 <div>
-                                    <input type="email" name="email" placeholder="이메일 입력"/>
+                                    <input type="email" name="email" class="emailInput" placeholder="이메일 입력"/>
                                     <button type="button" class="btnAuth">인증번호 받기</button>
+                                    <span class="resultEmail"></span>
                                 </div>
                                 <div>
-                                    <input type="text" name="auth" disabled placeholder="인증번호 입력"/>
+                                    <input type="text" name="auth" class="auth" readonly placeholder="인증번호 입력"/>
                                     <button type="button" class="btnConfirm">확인</button>
                                 </div>
                             </td>
@@ -31,8 +37,8 @@
                 </p>
 
                 <div>
-                    <a href="./login.html" class="btn btnCancel">취소</a>
-                    <a href="./findIdResult.html" class="btn btnNext">다음</a>
+                    <a href="/JBoard2/user/login.do" class="btn btnCancel">취소</a>                
+                    <a href="/JBoard2/user/findIdResult.do" class="btn btnNext">다음 !</a>                        
                 </div>
             </section>
         </main>
