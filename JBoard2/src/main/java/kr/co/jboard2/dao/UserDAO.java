@@ -19,7 +19,6 @@ public class UserDAO extends DBHelper {
 	// 로거 생성
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	
 	public void insertUser(UserVO vo) {
 		
 		try {
