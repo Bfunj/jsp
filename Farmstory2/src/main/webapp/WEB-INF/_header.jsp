@@ -1,8 +1,6 @@
 <%@page import="kr.co.Farmstory2.VO.UserVO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	UserVO sessUser = (UserVO) session.getAttribute("sessUser");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,26 +24,27 @@
                 auto: true
             });
             $('#tabs').tabs();
-        });
-        
-        
+        });       
         </script>
-
 </head>
+
 <body>
     <div id="wrapper">
         <header>
             <a href="/Farmstory2/" class="logo"><img src="/Farmstory2/img/logo.png" alt="로고"/></a>
             <p>
-                <a href="/Farmstory2/">HOME |</a>
-                <% if(sessUser == null){ %>
-                <a href="/Farmstory2/login.do">로그인 |</a>
-                <a href="/Farmstory2/terms.do">회원가입 |</a>
-                <% }else{ %>
-                <span class="nick"><%= sessUser.getNick()%> |</span>
-                <a href="/Farmstory2/logout.do">로그아웃 |</a>
-                <% } %>
-                <a href="#">고객센터</a>
+            	<a href="/Farmstory2/">HOME |</a>
+            	<c:choose>
+		            <c:when test="${sessUser == null}">
+		          		 <a href="/Farmstory2/login.do">로그인 |</a>
+		               	 <a href="/Farmstory2/terms.do">회원가입 |</a>
+		            </c:when>
+	         		<c:otherwise> 
+						 <span class="nick">${sessUser.nick} |</span>
+	               		 <a href="/Farmstory2/logout.do">로그아웃 |</a>
+					</c:otherwise> 
+            	 </c:choose>
+                <a href="#">고객센터</a>          
             </p>
             <img src="/Farmstory2/img/head_txt_img.png" alt="3만원 이상 무료배송"/>
             

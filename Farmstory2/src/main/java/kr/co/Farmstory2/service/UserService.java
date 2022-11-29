@@ -12,15 +12,19 @@ public enum UserService {
 	public void insertUser(UserVO ub) {
 			dao.insertUser(ub);
 	}
-	
-	
 	public TermsVO selectTerms() {
 		return dao.selectTerms();
 	}
-	
 	public UserVO selectUser(String uid, String pass) {
 		return dao.selectUser(uid, pass);
 	}
-	
+	public int selectCountUid(String uid) {
+		return dao.selectCountUid(uid);
+	}
+	public int selectCountNick(String nick) {
+		return dao.selectCountNick(nick);
+	}
 	
 }
+	
+

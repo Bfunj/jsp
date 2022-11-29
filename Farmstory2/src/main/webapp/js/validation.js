@@ -61,7 +61,7 @@ $(function(){
 			
 			//해당 url에 json data 전송
 			$.ajax({
-				url: './proc/checkUid.jsp',
+				url: '/Farmstory2/user/checkUid.do',
 				method: 'get',
 				data: jsonData,
 				dataType: 'json',
@@ -102,7 +102,6 @@ $(function(){
 			isPassOk=false;
 			$('.ResultPass').css('color','red').text('비밀번호가 일치하지 않습니다.');
 		}
-	
 	});
 	
 	// 이름 유효성 검증
@@ -140,7 +139,7 @@ $(function(){
 		
 		setTimeout(()=>{
 			$.ajax({
-				url:'./proc/checkNick.jsp',
+				url:'/Farmstory2/user/checkNick.do',
 				type:'get',
 				data:jsonData,
 				dataType:'json',
