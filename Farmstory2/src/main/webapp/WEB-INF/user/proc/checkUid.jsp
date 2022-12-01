@@ -1,5 +1,5 @@
-<%@page import="kr.co.Farmstory1.db.sql"%>
-<%@page import="kr.co.Farmstory1.db.DBCP"%>
+<%@page import="kr.co.Farmstory2.db.sql"%>
+<%@page import="kr.co.Farmstory2.db.DBCP"%>
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>

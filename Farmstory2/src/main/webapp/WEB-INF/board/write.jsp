@@ -1,18 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../_header.jsp" %>
-
-<%
-	String group = request.getParameter("group");
-	String cate = request.getParameter("cate");
-	pageContext.include("./_"+group+".jsp");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../_header.jsp"/>
+<jsp:include page="./_${group}.jsp"/>
 
         <main id="board" class="write">
             
-            <form action="/Farmstory1/board/proc/writeProc.jsp" method="post" enctype="multipart/form-data">
-            	<input type="hidden" name="group" value="<%= group%>"/>
-            	<input type="hidden" name="cate" value="<%= cate%>"/>
-            	<input type="hidden" name="uid" value="<%= sessUser.getUid()%>"/>
+            <form action="/Farmstory2/board/write.do?group=${group }&cate=${cate }" method="post" enctype="multipart/form-data">
+            	<input type="hidden" name="group" value="${group }"/>
+            	<input type="hidden" name="cate" value="${cate }"/>
+            	<input type="hidden" name="uid" value="${sessUser.uid }"/>
                 <table border="0">
                     <caption>글쓰기</caption>
                     <tr>
@@ -30,11 +26,11 @@
                 </table>
 
                 <div>
-                    <a href="./list.jsp?group=<%= group %>&cate=<%= cate%>" class="btn btnCancel">취소</a>
+                    <a href="./list.do?group=${group }&cate=${cate }" class="btn btnCancel">취소</a>
                     <input type="submit" value="작성완료" class="btn btnComplete"/>
                 </div>
             </form>
         </main>
    </div>
      
-<%@ include file="../_footer.jsp" %>
+<jsp:include page="../_footer.jsp"/>

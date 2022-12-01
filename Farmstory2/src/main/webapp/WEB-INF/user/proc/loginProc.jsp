@@ -1,6 +1,7 @@
-<%@page import="kr.co.Farmstory1.dao.UserDao"%>
-<%@page import="kr.co.Farmstory1.db.sql"%>
-<%@page import="kr.co.Farmstory1.bean.UserBean"%>
+<%@page import="kr.co.Farmstory2.VO.UserVO"%>
+<%@page import="kr.co.Farmstory2.dao.UserDao"%>
+<%@page import="kr.co.Farmstory2.db.sql"%>
+
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -11,7 +12,7 @@
 	String uid = request.getParameter("uid");
 	String pass = request.getParameter("pass");
 	
-	UserBean ub = UserDao.getInstance().selectUser(uid, pass);
+	UserVO ub = UserDao.getInstance().selectUser(uid, pass);
 	if(ub != null){
 		//회원일 경우
 		session.setAttribute("sessUser", ub);

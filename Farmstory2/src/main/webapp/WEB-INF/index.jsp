@@ -1,29 +1,21 @@
-
 <%@page import="kr.co.Farmstory2.dao.ArticleDao"%>
 <%@page import="kr.co.Farmstory2.VO.ArticleVO"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="./_header.jsp" %>
 
-<%
-	ArticleDao dao =ArticleDao.getInstance();
-	List<ArticleVO> arti_story = dao.selectArticles(0, "story");
-	List<ArticleVO> arti_grow = dao.selectArticles(0, "grow");
-	List<ArticleVO> arti_school= dao.selectArticles(0, "school");
-	List<ArticleVO> arti_notice= dao.selectArticles(0, "notice");
-	List<ArticleVO> arti_faq= dao.selectArticles(0, "faq");
-	List<ArticleVO> arti_qna= dao.selectArticles(0, "qna");
-%>
 <script>
 	$(function(){
 		$.get('/Farmstory2/board/proc/getLatest.jsp',function(data){});
 	});
 </script>
+
 <main>
     <div class="slider">
         <ul>
             <li><img src="./img/main_slide_img1.jpg" alt="슬라이더1"></li>
-            <li><img src="./img/main_slide_img2.jpg" alt="슬라이더2"></li>
+           	<li><img src="./img/main_slide_img2.jpg" alt="슬라이더2"></li>
             <li><img src="./img/main_slide_img3.jpg" alt="슬라이더3"></li>
         </ul>
 
@@ -46,31 +38,46 @@
             <a href="/Farmstory2/board/list.do?group=croptalk&cate=grow"><img src="./img/main_latest1_tit.png" alt="텃밭 가꾸기"/></a>
             <img src="./img/main_latest1_img.jpg" alt="이미지"/>
             <table border="0">
-               	<% int i=0; %>
-                 <% for(ArticleVO ab : arti_grow){ i++; %>              
-					<tr>
+            
+            <c:set var="done_loop" value="false"/>
+            <c:set var="i" value="1"></c:set>
+            <c:forEach var="ab" items="${arti_grow}">
+                <c:if test="${done_loop ne true}">
+	                <tr>
 						<td>></td>
-						<td><a href="/Farmstory2/board/view.do?no=<%= ab.getNo() %>&pg=1&group=croptalk&cate=grow"><%= ab.getTitle() %> [new] </a></td>	
-						<td><%= ab.getRdate().substring(2,10) %></td>										
+							<td><a href="/Farmstory2/board/view.do?no=${ab.no}&pg=1&group=croptalk&cate=grow">${ab.title} [new] </a></td>	
+							<td>${ab.rdate.substring(2,10)}</td>										
 					</tr>
-					<% if(i==5) break;} %>
-  
-                </tr>
+					 <c:set var="i" value="${i+1}"></c:set>
+					  	<c:if test="${i eq 6}">
+                       		<c:set var="done_loop" value="true"/>
+                    	</c:if>
+                </c:if>
+            </c:forEach>
+
             </table>
         </div>
         <div>
             <a href="/Farmstory2/board/list.do?group=croptalk&cate=school"><img src="./img/main_latest2_tit.png" alt="귀농학교"/></a>
             <img src="./img/main_latest2_img.jpg" alt="이미지"/>
-            <table border="0">
+            <table border="0">                  
             
-                <% int j=0; %>
-                 <% for(ArticleVO ab : arti_school){ j++; %>              
-					<tr>
+            <c:set var="done_loop" value="false"/>
+            <c:set var="i" value="1"></c:set>
+            <c:forEach var="ab" items="${arti_school}">
+                <c:if test="${done_loop ne true}">
+	                <tr>
 						<td>></td>
-						<td><a href="/Farmstory1/board/view.do?no=<%= ab.getNo() %>&pg=1&group=croptalk&cate=school"><%= ab.getTitle() %></a></td>	
-						<td><%= ab.getRdate().substring(2,10) %></td>										
+							<td><a href="/Farmstory2/board/view.do?no=${ab.no}&pg=1&group=croptalk&cate=school">${ab.title} [new] </a></td>	
+							<td>${ab.rdate.substring(2,10)}</td>										
 					</tr>
-					<% if(j==5) break;} %>
+					 <c:set var="i" value="${i+1}"></c:set>
+					  	<c:if test="${i eq 6}">
+                       		<c:set var="done_loop" value="true"/>
+                    	</c:if>
+                </c:if>
+            </c:forEach>
+				
             
             </table>
         </div>
@@ -79,14 +86,21 @@
             <img src="./img/main_latest3_img.jpg" alt="이미지"/>
             <table border="0">
               
-                	<% int k=0; %>
-                 <% for(ArticleVO ab : arti_story){ k++; %>              
-					<tr>
+			<c:set var="done_loop" value="false"/>
+            <c:set var="i" value="1"></c:set>
+            <c:forEach var="ab" items="${arti_story}">
+                <c:if test="${done_loop ne true}">
+	                <tr>
 						<td>></td>
-						<td><a href="/Farmstory2/board/view.do?no=<%= ab.getNo() %>&pg=1&group=croptalk&cate=story"><%= ab.getTitle() %></a></td>	
-						<td><%= ab.getRdate().substring(2,10) %></td>										
+							<td><a href="/Farmstory2/board/view.do?no=${ab.no}&pg=1&group=croptalk&cate=story">${ab.title} [new] </a></td>	
+							<td>${ab.rdate.substring(2,10)}</td>										
 					</tr>
-					<% if(k==5) break;} %>
+					 <c:set var="i" value="${i+1}"></c:set>
+					  	<c:if test="${i eq 6}">
+                       		<c:set var="done_loop" value="true"/>
+                    	</c:if>
+                </c:if>
+            </c:forEach>
             
             </table>
         </div>
@@ -130,26 +144,51 @@
                 </ul>
                 <div id="tabs-1">
                     <ul class="txt">
-                 <% int z=0; %>
-                 <% for(ArticleVO ab : arti_notice){ z++; %>              	
-						<li><a href="/Farmstory2/board/view.do?no=<%= ab.getNo() %>&pg=1&group=community&cate=notice"><%= ab.getTitle() %></a></li>	
-					<% if(z==3) break;} %>             
+                    
+	                <c:set var="done_loop" value="false"/>
+	            	<c:set var="i" value="1"></c:set>
+	            	<c:forEach var="ab" items="${arti_notice}">
+		                <c:if test="${done_loop ne true}">					
+								<li><a href="/Farmstory2/board/view.do?no=${ab.no}&pg=1&group=community&cate=notice">${ab.title} </a></li>	
+							<c:set var="i" value="${i+1}"></c:set>
+							<c:if test="${i eq 4}">
+		                       	<c:set var="done_loop" value="true"/>
+		                   	</c:if>
+	               		</c:if>
+            		</c:forEach> 
+					           
                     </ul>
                 </div>
                 <div id="tabs-2">
                     <ul class="txt">
-                      <% int x=0; %>
-                 <% for(ArticleVO ab : arti_qna){ x++; %>              	
-						<li><a href="/Farmstory2/board/view.do?no=<%= ab.getNo() %>&pg=1&group=community&cate=qna"><%= ab.getTitle() %></a></li>	
-					<% if(x==3) break;} %>
+                    <c:set var="done_loop" value="false"/>
+	            	<c:set var="i" value="1"></c:set>
+	            	<c:forEach var="ab" items="${arti_qna}">
+		                <c:if test="${done_loop ne true}">					
+								<li><a href="/Farmstory2/board/view.do?no=${ab.no}%>&pg=1&group=community&cate=qna">${ab.title} </a></li>	
+							<c:set var="i" value="${i+1}"></c:set>
+							<c:if test="${i eq 4}">
+		                       	<c:set var="done_loop" value="true"/>
+		                   	</c:if>
+	               		</c:if>
+            		</c:forEach> 
+                    
                   </ul>
                 </div>
                 <div id="tabs-3">
                     <ul class="txt">
-                       <% int c=0; %>
-                	 <% for(ArticleVO ab : arti_faq){ c++; %>              	
-						<li><a href="/Farmstory2/board/view.do?no=<%= ab.getNo() %>&pg=1&group=community&cate=faq"><%= ab.getTitle() %></a></li>	
-					<% if(c==3) break;} %>
+                    <c:set var="done_loop" value="false"/>
+	            	<c:set var="i" value="1"></c:set>
+	            	<c:forEach var="ab" items="${arti_faq}">
+		                <c:if test="${done_loop ne true}">					
+								<li><a href="/Farmstory2/board/view.do?no=${ab.no}%>&pg=1&group=community&cate=faq">${ab.title} </a></li>	
+							<c:set var="i" value="${i+1}"></c:set>
+							<c:if test="${i eq 4}">
+		                       	<c:set var="done_loop" value="true"/>
+		                   	</c:if>
+	               		</c:if>
+            		</c:forEach> 
+
                     </ul>
                 </div>
             </div>

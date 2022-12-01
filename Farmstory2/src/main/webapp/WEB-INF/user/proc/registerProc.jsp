@@ -1,5 +1,5 @@
-<%@page import="kr.co.Farmstory1.dao.UserDao"%>
-<%@page import="kr.co.Farmstory1.bean.UserBean"%>
+<%@page import="kr.co.Farmstory2.dao.UserDao"%>
+<%@page import="kr.co.Farmstory2.VO.UserVO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
@@ -19,7 +19,7 @@
 	String addr2 = request.getParameter("addr2");
 	String regip = request.getRemoteAddr(); // 클라이언트 IP주소
 	
-	UserBean user = new UserBean();
+	UserVO user = new UserVO();
 	user.setUid(uid);
 	user.setPass(pass1);
 	user.setName(name);

@@ -1,5 +1,5 @@
-<%@page import="kr.co.Farmstory1.dao.ArticleDao"%>
-<%@page import="kr.co.Farmstory1.bean.ArticleBean"%>
+<%@page import="kr.co.Farmstory2.VO.ArticleVO"%>
+<%@page import="kr.co.Farmstory2.dao.ArticleDao"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.io.File"%>
@@ -16,7 +16,7 @@
 	request.setCharacterEncoding("UTF-8");
 	
 	
-	ArticleBean ab = new ArticleBean();
+	ArticleVO ab = new ArticleVO();
 	
 	// multipart 전송 데이터 수신
 	int maxSize = 1024*1024*10;

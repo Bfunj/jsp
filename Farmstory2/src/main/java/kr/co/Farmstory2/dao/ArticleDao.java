@@ -85,8 +85,7 @@ public class ArticleDao {
 	}
 	
 public FileVO selectFile(String fno) {
-
-		
+	
 		FileVO fb = null;
 		
 		try{

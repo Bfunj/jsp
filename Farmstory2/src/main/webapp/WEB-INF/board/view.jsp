@@ -1,52 +1,38 @@
-<%@page import="kr.co.Farmstory2.dao.ArticleDao"%>
-<%@page import="kr.co.Farmstory2.VO.ArticleVO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../_header.jsp" %>
-<%
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../_header.jsp"/>
+<jsp:include page="./_${group}.jsp"/>
 
-	request.setCharacterEncoding("UTF-8");
-	String group = request.getParameter("group");
-	String cate = request.getParameter("cate");
-	String no = request.getParameter("no");
-	String pg = request.getParameter("pg");
-	pageContext.include("./_"+group+".jsp");
-	
-	ArticleVO ab  = ArticleDao.getInstance().selectArticle(no);
-%>
-
-   <main id="board" class="view">
+<main id="board" class="view">
             <table>
                 <caption>글보기</caption>
                  
                 <tr>
                     <th>제목</th>
                     
-                    <td><input type="text" value="<%= ab.getTitle() %>" name= "title"  readonly ></td>
+                    <td><input type="text" value="${ab.title }" name= "title"  readonly ></td>
                 </tr>
                 
                 <tr>
                     <th>파일</th>
-                       <%if(ab.getFile()==1) {%>
-                    <td><a href="/Farmstory1/board/proc/download.jsp?fno=<%= ab.getFno() %>"><%= ab.getOriName() %></a>&nbsp;<span><%= ab.getDownload() %></span>회 다운로드</td>
-                     <% } %>
+                    	<c:if test="${ab.file eq 1 }">
+                    		 <td><a href="/Farmstory2/board/download.do?fno=${ab.fno }">${ab.oriName} </a>&nbsp;<span>${ab.download }</span>회 다운로드</td>
+                    	</c:if>
                 </tr>
                
                 <tr>
                     <th>내용</th>
-                    <td><textarea name="content"readonly><%= ab.getContent() %></textarea></td>
+                    <td><textarea name="content"readonly>${ab.content }</textarea></td>
                 </tr>
-           
             </table>
-
-
             <div>
-            	<%if( sessUser != null ) {%>
-            	<%if( ab.getUid().equals(sessUser.getUid()) ) {%>
-                <a href="/Farmstory1/board/proc/deleteProc.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>" class="btn btnRemove">삭제</a>
-                <%} %>     
-                <a href="/Farmstory1/board/modify.jsp?no=<%= ab.getNo() %>&pg=<%= pg%>&group=<%= group %>&cate=<%= cate%>" class="btn btnModify">수정</a>
-              	<%} %>  
-				<a href="/Farmstory1/board/list.jsp?pg=<%= pg%>&group=<%= group %>&cate=<%= cate%>" class="btn btnList">목록</a>
+            	<c:if test="${sessUser ne null }">
+            		<c:if test="${ab.uid eq sessUser.uid }">
+            			<a href="/Farmstory2/board/delete.do?no=${ab.no }&pg=${pg}" class="btn btnRemove">삭제</a>
+            		</c:if>
+						<a href="/Farmstory2/board/modify.do?no=${ab.no }&pg=${pg}&group=${group}&cate=${cate}" class="btn btnModify">수정</a>       		
+						<a href="/Farmstory2/board/list.do?pg=${pg }&group=${group}&cate=${cate}" class="btn btnList">목록</a>       		
+            	</c:if>
             </div>
 
             <!-- 댓글목록 -->
@@ -64,9 +50,8 @@
                 <p class="empty">등록된 댓글이 없습니다.</p>
             </section>
             
-			<%if( sessUser != null ) {%>
-            <!-- 댓글쓰기 -->
-            <section class="commentForm">
+            <c:if test="${sessUser ne null }">
+             <section class="commentForm">
                 <h3>댓글쓰기</h3>
                 <form action="#">
                     <textarea name="content" placeholder="댓글내용 입력"></textarea>
@@ -76,7 +61,7 @@
                     </div>
                 </form>
             </section>
-            <%} %>  
+            </c:if>
         </main>
           </div> 
-<%@ include file="../_footer.jsp" %>
+<jsp:include page="../_footer.jsp"/>

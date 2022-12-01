@@ -1,5 +1,6 @@
-<%@page import="kr.co.Farmstory1.bean.FileBean"%>
-<%@page import="kr.co.Farmstory1.dao.ArticleDao"%>
+
+<%@page import="kr.co.Farmstory2.VO.FileVO"%>
+<%@page import="kr.co.Farmstory2.dao.ArticleDao"%>
 <%@page import="java.io.BufferedOutputStream"%>
 <%@page import="java.io.FileInputStream"%>
 <%@page import="java.io.BufferedInputStream"%>
@@ -17,7 +18,7 @@
 	
 	ArticleDao dao = ArticleDao.getInstance();
 	
-	FileBean fb = dao.selectFile(fno);
+	FileVO fb = dao.selectFile(fno);
 	
 
 	// 파일 다운로드 헤더정보 수정
