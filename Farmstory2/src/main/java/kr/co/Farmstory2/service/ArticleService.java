@@ -107,4 +107,29 @@ public enum ArticleService {
 		return newName;
 	}
 	
+	
+	public List<ArticleVO> selectComments(String parent) {
+		return dao.selectComments(parent);
+	}
+	
+	public ArticleVO insertComment(ArticleVO comment) {
+		return dao.insertComment(comment);
+	}
+	
+	public int deleteComment(String no) {
+		return dao.deleteComment(no);
+	}
+	public int updateComment(String no, String content) {
+		return dao.updateComment(no, content);
+	}
+	public void updateArticle(String title, String content, String no) {
+		dao.updateArticle(title, content, no);
+	}
+	public void deleteArticle(String no) {
+		dao.deleteArticle(no);
+	}
+	public String deleteFile(String parent) {
+		return dao.deleteFile(parent);
+	}
+	
 }

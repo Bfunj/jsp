@@ -19,8 +19,7 @@
 	                <th>조회</th>
             	</tr>
                                 
-				<c:forEach var="ab" items="${artiB}">
-				
+				<c:forEach var="ab" items="${artiB}">				
                 	<tr>
                     	<td>${pageStartNum =pageStartNum-1 }</td>
                      	<td><a href="/Farmstory2/board/view.do?no=${ab.no }&pg=${currentPage }&group=${group}&cate=${cate}">${ab.title} </a></td>
@@ -29,6 +28,8 @@
 						<td>${ab.hit }</td>
                     </tr>  
                  </c:forEach>
+ 
+                
 			</tbody>
 	</table>
             <div class="page">

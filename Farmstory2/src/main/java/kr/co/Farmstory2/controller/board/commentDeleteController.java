@@ -1,7 +1,7 @@
 package kr.co.Farmstory2.controller.board;
 
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,42 +10,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonObject;
+
 import kr.co.Farmstory2.VO.ArticleVO;
 import kr.co.Farmstory2.service.ArticleService;
 
-@WebServlet("/board/view.do")
-public class viewController extends HttpServlet{
+@WebServlet("/board/commentDelete.do")
+public class commentDeleteController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	private ArticleService service = ArticleService.INSTANCE;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
-		// 글 목록 구성
-		String group = req.getParameter("group");
-		String cate = req.getParameter("cate");
+	
 		String no = req.getParameter("no");
-		String pg = req.getParameter("pg");
-		ArticleVO ab  = service.selectArticle(no);
 		
-		req.setAttribute("group", group);
-		req.setAttribute("cate", cate);
-		req.setAttribute("no", no);
-		req.setAttribute("pg", pg);
-		req.setAttribute("ab", ab);
+		int result = service.deleteComment(no);
 		
+		// json 출력
+		JsonObject json = new JsonObject();
+		json.addProperty("result", result);
+		json.addProperty("no", no);
 		
-		// 댓글 보기
-		List<ArticleVO> comments = service.selectComments(no);
-		req.setAttribute("comments", comments);
-		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/board/view.jsp");
-		dispatcher.forward(req, resp);
-		
+		PrintWriter writer = resp.getWriter();
+		writer.print(json.toString());
+	
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	
 		
 	}
 }

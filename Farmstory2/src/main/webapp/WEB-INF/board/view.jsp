@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../_header.jsp"/>
 <jsp:include page="./_${group}.jsp"/>
-
+<script src="/Farmstory2/js/comment.js"> </script>
 <main id="board" class="view">
             <table>
                 <caption>글보기</caption>
@@ -28,7 +28,7 @@
             <div>
             	<c:if test="${sessUser ne null }">
             		<c:if test="${ab.uid eq sessUser.uid }">
-            			<a href="/Farmstory2/board/delete.do?no=${ab.no }&pg=${pg}" class="btn btnRemove">삭제</a>
+            			<a href="/Farmstory2/board/delete.do?no=${ab.no }&pg=${pg}&group=${group}&cate=${cate}" class="btn btnRemove">삭제</a>
             		</c:if>
 						<a href="/Farmstory2/board/modify.do?no=${ab.no }&pg=${pg}&group=${group}&cate=${cate}" class="btn btnModify">수정</a>       		
 						<a href="/Farmstory2/board/list.do?pg=${pg }&group=${group}&cate=${cate}" class="btn btnList">목록</a>       		
@@ -38,26 +38,36 @@
             <!-- 댓글목록 -->
             <section class="commentList">
                 <h3>댓글목록</h3>
-                <article>
-                    <span class="nick">길동이</span>
-                    <span class="date">20-05-13</span>                    
-                    <p class="content">댓글 샘플입니다.</p>
-                    <div>
-                        <a href="#" class="remove">삭제</a>
-                        <a href="#" class="modify">수정</a>
-                    </div>
-                </article>                
-                <p class="empty">등록된 댓글이 없습니다.</p>
+                <c:forEach  var="comment" items="${comments}">
+                  <article class="hidecomment">
+                    <span class="nick">${comment.nick }</span>
+               		<span class="date">${comment.rdate }</span> 
+                    <p class="content" contentEditable="true">${comment.content }</p>
+                	<c:if test="${comment.uid eq sessUser.uid }">
+                		 <div>
+		                <a href="#" class="remove" data-no="${comment.no }">삭제 </a>
+		                <a href="#" class="modify" data-no="${comment.no }">수정</a>
+            		</div>
+                	</c:if>
+                	</article>
+                </c:forEach>
+                <c:if test="${comment.size eq 0 }">
+                	 <p class="empty">등록된 댓글 없습니다.</p>
+                </c:if>
+                
             </section>
             
             <c:if test="${sessUser ne null }">
              <section class="commentForm">
                 <h3>댓글쓰기</h3>
-                <form action="#">
+                <form action="/Farmstory2/board/comment.do" method="post">
+                   <input type="hidden" name="pg" value="${pg }">
+                	<input type="hidden" name="parent" value="${no }">
+                	<input type="hidden" name="uid" value="${sessUser.uid }">
                     <textarea name="content" placeholder="댓글내용 입력"></textarea>
                     <div>
                         <a href="#" class="btn btnCancel">취소</a>
-                        <input type="submit" class="btn btnComplete" value="작성완료"/>
+                        <input type="submit" class="btn btnComplete" value="작성완료">
                     </div>
                 </form>
             </section>

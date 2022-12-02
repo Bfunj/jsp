@@ -12,6 +12,7 @@ public class ArticleVO {
 	private String uid;
 	private String regip;
 	private String rdate;
+	
 
 	private int fno;
 	private String oriName;
@@ -45,6 +46,7 @@ public class ArticleVO {
 	public void setDownload(int download) {
 		this.download = download;
 	}
+	
 	private String nick;
 	
 	public String getNick() {
@@ -53,6 +55,7 @@ public class ArticleVO {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
+	
 	public int getNo() {
 		return no;
 	}

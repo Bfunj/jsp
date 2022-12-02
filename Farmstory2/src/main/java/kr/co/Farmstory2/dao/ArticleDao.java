@@ -123,6 +123,7 @@ public FileVO selectFile(String fno) {
 		ArticleVO ab= null;
 
 		try{
+			logger.info("selectArticle start...");
 			Connection conn =DBCP.getConnection();
 			
 			PreparedStatement psmt = conn.prepareStatement(sql.UPDATE_ARTICLE_HIT);
@@ -157,8 +158,8 @@ public FileVO selectFile(String fno) {
 			psmt2.close();
 			conn.close();
 			
-		}catch(Exception e){
-			e.printStackTrace();
+		}catch(Exception e) {
+			logger.error(e.getMessage());
 		}
 	
 		return ab;
@@ -170,6 +171,7 @@ public FileVO selectFile(String fno) {
 		
 		List<ArticleVO> artiB =new ArrayList<>();
 		try{
+			logger.info("selectArticles start...");
 			Connection conn = DBCP.getConnection();
 			
 			PreparedStatement psmt = conn.prepareStatement(sql.SELECT_ARTICLES);
@@ -212,6 +214,7 @@ public FileVO selectFile(String fno) {
 	public int selectCountTotal(String cate) {
 		int total =0;	
 		try{
+			logger.info("selectCountTotal start...");
 			Connection conn = DBCP.getConnection();
 			PreparedStatement psmt = conn.prepareStatement(sql.SELECT_COUNT_TOTAL);
 			psmt.setString(1,cate);
@@ -230,10 +233,199 @@ public FileVO selectFile(String fno) {
 		return total;
 	}
 	
+public List<ArticleVO> selectComments(String parent) {
+		
+		List<ArticleVO> comments = new ArrayList<>();
+		
+		try {
+			logger.info("selectComments start...");
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql.SELECT_COMMENTS);
+			psmt.setString(1, parent);
+			
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				ArticleVO comment =new ArticleVO();
+				comment.setNo(rs.getInt(1));
+				comment.setParent(rs.getString(2));
+				comment.setComment(rs.getString(3));
+				comment.setCate(rs.getString(4));
+				comment.setTitle(rs.getString(5));
+				comment.setContent(rs.getString(6));
+				comment.setFile(rs.getInt(7));
+				comment.setHit(rs.getInt(8));
+				comment.setUid(rs.getString(9));
+				comment.setRegip(rs.getString(10));
+				comment.setRdate(rs.getString(11).substring(2, 10));
+				comment.setNick(rs.getString(12));
 
+				comments.add(comment);
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return comments;
+	}
 
+	public int updateComment(String no, String content) {
+		
+		int result = 0;
+		try{
+			logger.info("updateComment start...");
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt=conn.prepareStatement(sql.UPDATE_COMMENT);
+			psmt.setString(1, content);
+			psmt.setString(2, no);
+			
+			result = psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;	
+	}
 	
-	public void updateArticle() {}
-	public void deleteArticle() {}
+	public int deleteComment(String no) {
+		
+		int result = 0;
+		try{
+			logger.info("deleteComment start...");
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt=conn.prepareStatement(sql.DELETE_COMMENT);
+			psmt.setString(1, no);
+			
+			result = psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;	
+	} // 댓글 삭제
+	
+	
+	public ArticleVO insertComment(ArticleVO comment){
+		ArticleVO article = null;
+		try{
+			logger.info("insertComment start...");
+			Connection conn = DBCP.getConnection();
+			
+			// 트랜잭션 시작
+			conn.setAutoCommit(false);
+			
+			PreparedStatement psmt = conn.prepareStatement(sql.INSERT_COMMENT);
+			Statement stmt =conn.createStatement();
+			
+			
+			psmt.setString(1, comment.getParent());
+			psmt.setString(2, comment.getContent());
+			psmt.setString(3, comment.getUid());
+			psmt.setString(4, comment.getRegip());
+			psmt.executeUpdate();
+			
+			ResultSet rs = stmt.executeQuery(sql.SELECT_COMMENT_LATEST);
+			
+			//작업 확정
+			conn.commit();
+			
+			if(rs.next()) {
+				article = new ArticleVO();
+				article.setNo(rs.getInt(1));
+				article.setParent(rs.getString(2));
+				article.setContent(rs.getString(6));
+				article.setRdate(rs.getString(11).substring(2, 10));
+				article.setNick(rs.getString(12));
+			}
+			logger.info("inserComment Nick : "+ article.getNick());
+			rs.close();
+			psmt.close();
+			conn.close();
+		}catch(Exception e){
+			logger.error(e.getMessage());
+		}
+		return article;
+	}
+	
+	public void updateArticle(String title, String content, String no) {
+		
+		try{
+			Connection conn = DBCP.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql.UPDATE_LIST);
+			
+			psmt.setString(1, title);
+			psmt.setString(2, content);
+			psmt.setString(3, no);
+			
+			psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteArticle(String no) {
+		try{
+			Connection conn =DBCP.getConnection();
+		
+		
+			PreparedStatement psmt = conn.prepareStatement(sql.DELETE_ARTICLE);
+			psmt.setString(1, no);
+			psmt.setString(2, no);
+		
+			psmt.executeUpdate();
+			
+		
+			psmt.close();
+			conn.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+public String deleteFile(String parent) {
+		
+		String newName = null;
+		
+		try {
+			Connection conn = DBCP.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			PreparedStatement psmt1 = conn.prepareStatement(sql.SELECT_FILE_WITH_PARENT);
+			PreparedStatement psmt2 = conn.prepareStatement(sql.DELETE_FILE);
+			psmt1.setString(1, parent);
+			psmt2.setString(1, parent);
+			
+			ResultSet rs = psmt1.executeQuery();
+			psmt2.executeUpdate();
+			
+			conn.commit();
+			
+			if(rs.next()) {
+				newName = rs.getString(3);
+			}
+			
+			psmt1.close();
+			psmt2.close();			
+			conn.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newName;
+	}
+	
+
 	
 }

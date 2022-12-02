@@ -5,12 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="./_header.jsp" %>
 
-<script>
-	$(function(){
-		$.get('/Farmstory2/board/proc/getLatest.jsp',function(data){});
-	});
-</script>
-
 <main>
     <div class="slider">
         <ul>
@@ -128,11 +122,11 @@
         <div>
             <img src="./img/main_sub2_account_tit.png" class="tit" alt="계좌안내"/>
             <p class="account">
-                기업은행 123-456789-01-01-012<br />
+                카톡으로 주세요.<br />
                 국민은행 01-1234-56789<br />
                 우리은행 123-456789-01-01-012<br />
                 하나은행 123-456789-01-01<br />
-                예 금 주 (주)팜스토리
+                예 금 주 : 백 현 조
             </p>
         </div>
         <div>
